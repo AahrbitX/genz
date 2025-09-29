@@ -1,20 +1,16 @@
 "use client"
 
-import { useEffect } from "react"
-
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { useState, useRef } from "react"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+import { ChevronRight } from "lucide-react"
+import Link from "next/link"
+import AutoSlider from "@/components/AutoSlider"
+import AnimatedSection from "@/components/animations/AnimatedSection"
+import StaggeredContainer from "@/components/animations/StaggeredContainer"
+import { RetroGrid } from "@/components/ui/retro-grid"
+import Image from "next/image"
 
 export default function HomePage() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
-  const [startX, setStartX] = useState(0)
-  const [translateX, setTranslateX] = useState(0)
-  const sliderRef = useRef<HTMLDivElement>(null)
-
   const testimonials = [
     {
       text: "Our brand went from being overlooked to standing out in a crowded market. Their total branding package combined with strategic social media management was a game changer for us.",
@@ -46,275 +42,275 @@ export default function HomePage() {
       initials: "TC",
       color: "#006600",
     },
+    {
+      text: "Gen Z Workspace transformed our entire brand strategy. Their innovative approach and attention to detail helped us stand out in a competitive market.",
+      company: "Innovate Labs",
+      initials: "IL",
+      color: "#9900cc",
+    },
   ]
-
-  const getCardsPerView = () => {
-    if (typeof window !== "undefined") {
-      if (window.innerWidth < 640) return 1 // mobile: 1 card
-      if (window.innerWidth < 1024) return 2 // tablet: 2 cards
-      return 3 // desktop: 3 cards
-    }
-    return 3
-  }
-
-  const [cardsPerView, setCardsPerView] = useState(3)
-  const maxSlide = testimonials.length - cardsPerView
-
-  const handleResize = () => {
-    const newCardsPerView = getCardsPerView()
-    setCardsPerView(newCardsPerView)
-    setCurrentSlide((prev) => Math.min(prev, testimonials.length - newCardsPerView))
-  }
-
-  const handleMouseDown = (e: MouseEvent) => {
-    setIsDragging(true)
-    setStartX(e.clientX)
-    e.preventDefault()
-  }
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (!isDragging) return
-    const currentX = e.clientX
-    const diff = currentX - startX
-    setTranslateX(diff)
-  }
-
-  const handleMouseUp = () => {
-    if (!isDragging) return
-    setIsDragging(false)
-
-    if (Math.abs(translateX) > 50) {
-      if (translateX > 0 && currentSlide > 0) {
-        setCurrentSlide((prev) => prev - 1)
-      } else if (translateX < 0 && currentSlide < maxSlide) {
-        setCurrentSlide((prev) => prev + 1)
-      }
-    }
-
-    setTranslateX(0)
-  }
-
-  const handleTouchStart = (e: TouchEvent) => {
-    setIsDragging(true)
-    setStartX(e.touches[0].clientX)
-  }
-
-  const handleTouchMove = (e: TouchEvent) => {
-    if (!isDragging) return
-    const currentX = e.touches[0].clientX
-    const diff = currentX - startX
-    setTranslateX(diff)
-  }
-
-  const handleTouchEnd = () => {
-    if (!isDragging) return
-    setIsDragging(false)
-
-    if (Math.abs(translateX) > 50) {
-      if (translateX > 0 && currentSlide > 0) {
-        setCurrentSlide((prev) => prev - 1)
-      } else if (translateX < 0 && currentSlide < maxSlide) {
-        setCurrentSlide((prev) => prev + 1)
-      }
-    }
-
-    setTranslateX(0)
-  }
-
-  useEffect(() => {
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
   return (
-    <div className="min-h-screen bg-[#fffbfb]">
-      <Header />
+    <div className="min-h-screen relative w-screen overflow-x-hidden">
+      {/* RetroGrid Background for Entire Page */}
+      <div className="fixed inset-0 w-full h-full overflow-hidden">
+        <RetroGrid 
+          angle={45}
+          cellSize={40}
+          opacity={0.3}
+          lightLineColor="#5F6060"
+          darkLineColor="#5F6060"
+        />
+      </div>
+
+      <div 
+        className="fixed inset-0"
+        style={{
+          width: '1500px',
+          height: '700px',
+          left: 'calc(50% - 1500px/2)',
+          top: '-150px',
+          background: 'radial-gradient(54.72% 54.76% at 50.92% -20.34%, #FF3300 41.98%, rgba(255, 51, 0, 0.620122) 60.13%, rgba(255, 51, 0, 0.306537) 76.65%, rgba(255, 51, 0, 0.169634) 99.79%, rgba(255, 51, 0, 0) 100%)',
+          filter: 'blur(70.35px)'
+        }}
+      ></div>
+
 
       {/* Hero Section */}
-      <section className="bg-[#d9d9d9] h-64 sm:h-80 lg:h-96 flex items-center justify-center">
-        <div className="w-full h-full bg-[#d9d9d9]"></div>
+      <AnimatedSection>
+        <section className="h-64 sm:h-80 lg:h-[600px] flex items-center justify-center relative mt-44">
+        {/* <iframe
+          className="w-full h-full absolute inset-0"
+          src="https://player.vimeo.com/video/937830968?autoplay=1&muted=1&loop=1&controls=0&background=1&title=0&byline=0&portrait=0"
+          title="Hero Video"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          style={{ width: '100%', height: '100%' }}
+        ></iframe> */}
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 text-[#000000]">
+            Let Us Tell Your <span className="text-[#ff3300] text-3xl sm:text-4xl lg:text-5xl">"Brand"</span> Stories
+          </h2>
       </section>
+      </AnimatedSection>
 
       {/* Brand Stories Section */}
-      <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6">
+      <AnimatedSection delay={0.2}>
+        <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 text-[#000000]">
-            Let Us Tell Your <span className="text-[#ff3300]">"Brand"</span> Stories
-          </h2>
+            {/* <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 text-[#000000]">
+            Let Us Tell Your <span className="text-[#ff3300] text-3xl sm:text-4xl lg:text-5xl">"Brand"</span> Stories
+          </h2> */}
 
-          <Card className="bg-[#dadada] p-0 rounded-3xl max-w-4xl mx-auto overflow-hidden">
-            <div className="flex flex-col lg:flex-row">
+            <Card className="bg-[#dadada] p-0 max-w-6xl h-[715px] mx-auto rounded-xl lg:rounded-[120px] overflow-hidden shadow-2xl ">
+            <div className="flex flex-col lg:flex-row gap-10 h-full ">
               {/* Left side - Dark gray placeholder */}
-              <div className="w-full lg:w-2/5">
-                <div className="bg-[#8e8e8e] h-48 sm:h-64 lg:h-80 rounded-t-3xl lg:rounded-l-3xl lg:rounded-tr-none"></div>
+              <div className="w-full lg:w-2/4 h-full">
+                  <div className="bg-[#8e8e8e] h-full lg:rounded-l-[120px]">
+                    <Image src="/images/services/Brand-Design.png" alt="Brand Stories"  width={500} height={500} className="object-cover w-full h-full" />
+                  </div>
               </div>
 
               {/* Right side - Content area */}
-              <div className="w-full lg:w-3/5 p-6 sm:p-8">
-                <div className="flex items-center gap-2 mb-4 sm:mb-6">
-                  <div className="w-2 h-2 bg-[#ff3300] rounded-full"></div>
-                  <span className="text-[#000000] font-medium text-sm">About Us</span>
+              <div className="w-full h-full lg:w-2/4 flex justify-center flex-col px-4 rounded-none lg:rounded-r-3xl pb-4 sm:pb-0">
+                <div className="flex items-center gap-3 mb-6 bg-white w-fit px-4 py-2 rounded-full sm:mb-8">
+                  <div className="w-3 h-3 bg-[#ff3300] rounded-full"></div>
+                  <span className="text-[#000000] font-medium text-base sm:text-lg">About Us</span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-[#000000] leading-tight">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-6 sm:mb-8 text-[#000000] leading-tight">
                   Gen Z Workspace is more than just a branding workspace
                 </h3>
 
-                <p className="text-[#000000] mb-6 sm:mb-8 leading-relaxed text-sm">
+                <p className="text-[#000000] mb-8 sm:mb-10 leading-relaxed text-base sm:text-lg xl:text-xl 2xl:text-2xl">
                   It's a creative ecosystem built for visionary brands that dare to be different. We're not just shaping
                   visuals; we're crafting identities that echo with personality, purpose, and unforgettable presence.
                 </p>
 
-                <button className="text-[#000000] font-medium text-sm underline">See some highlights</button>
+                <Link href="/about">
+                  <button className="text-[#000000] font-medium text-base sm:text-lg underline hover:text-[#ff3300] transition-colors duration-300 flex justify-start">
+                    See some highlights
+                  </button>
+                </Link>
               </div>
             </div>
           </Card>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* Services Section */}
+      <AnimatedSection delay={0.4}>
       <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 relative overflow-hidden">
         {/* Animated Grid Background */}
-        <div className="absolute inset-0 opacity-10">
+        {/* <div className="absolute inset-0">
           <div className="grid-background"></div>
-        </div>
+        </div> */}
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 lg:mb-16 text-[#000000]">
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col sm:block items-center sm:items-start">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-8 sm:mb-12 lg:mb-16 text-[#000000]">
             Our Services
           </h2>
 
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8">
+            <StaggeredContainer className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8">
             {/* Brand Identity */}
-            <Card className="bg-[#e8e8e8] p-6 sm:p-8 rounded-2xl relative group hover:shadow-lg transition-all duration-300 w-full max-w-sm">
-              <h3 className="text-lg sm:text-xl font-bold mb-2 text-[#000000]">Brand Identity</h3>
-              <p className="text-sm sm:text-base font-semibold mb-4 text-[#000000]">Build a Brand that sticks</p>
+              <Card className=" bg-[#e8e8e8]/50 p-6 sm:p-8 rounded-2xl relative group hover:shadow-lg transition-all duration-300 w-full max-w-sm flex flex-col items-center">
+                <h3 className="text-xl font-bold mb-2 text-[#000000]">Brand Identity</h3>
+                <p className="text-xl font-medium mb-4 text-[#000000]">Build a Brand that sticks</p>
 
-              <p className="text-[#000000] mb-6 sm:mb-8 text-sm leading-relaxed">
+                <p className="text-[#000000] mb-6 sm:mb-8 text-xl leading-relaxed">
                 it's the complete visual and verbal language that shapes how audience sees you....
               </p>
-
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-[#000000] rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">→</span>
+              <Link href="/services#brand-identity">
+                <div className="flex items-center justify-center hover:cursor-pointer relative overflow-hidden rounded-full px-6 py-3">
+                    <div className="flex items-center justify-between w-full gap-2 relative">
+                      {/* Single chevron that slides from left to right */}
+                      <div className="relative z-20 w-5 h-5 bg-[#000000] rounded-full flex items-center justify-center transition-all duration-500 ease-in-out group-hover:translate-x-[120px]">
+                        <ChevronRight className="text-[#ffffff] text-xs font-bold h-3 w-3" />
+                      </div>
+                      
+                      {/* Center text */}
+                      <span className="relative z-20 text-[#000000] group-hover:text-[#ffffff] font-bold text-sm transition-colors duration-300">
+                        READ MORE
+                      </span>
+                      
+                      {/* Right placeholder for spacing */}
+                      <div className="w-5 h-5"></div>
+                    </div>
+                    
+                    {/* Expanding background */}
+                    <div className="absolute inset-0 bg-[#000000] rounded-full transform scale-0 group-hover:scale-100 origin-center transition-transform duration-500 ease-out z-10"></div>
                 </div>
-                <span className="text-[#000000] font-bold text-sm">READ MORE</span>
-              </div>
+              </Link>
             </Card>
 
             {/* Arrow between first and second card - hidden on mobile */}
-            <div className="text-[#000000] text-2xl lg:text-3xl font-bold hidden lg:block">→</div>
+              <ChevronRight className="text-[#000000] text-2xl lg:text-4xl font-bold hidden lg:block" />
 
             {/* Brand Design */}
-            <Card className="bg-[#e8e8e8] p-6 sm:p-8 rounded-2xl relative group hover:shadow-lg transition-all duration-300 w-full max-w-sm">
-              <h3 className="text-lg sm:text-xl font-bold mb-2 text-[#000000]">Brand Design</h3>
-              <p className="text-sm sm:text-base font-semibold mb-4 text-[#000000]">Bold.Strategic.Unforgettable</p>
+              <Card className=" bg-[#e8e8e8]/50 p-6 sm:p-8 rounded-2xl relative group hover:shadow-lg transition-all duration-300 w-full max-w-sm flex flex-col items-center">
+                <h3 className="text-xl font-bold mb-2 text-[#000000]">Brand Design</h3>
+                <p className="text-xl font-medium mb-4 text-[#000000]">Bold.Strategic.Unforgettable</p>
 
-              <p className="text-[#000000] mb-6 sm:mb-8 text-sm leading-relaxed">
+                <p className="text-[#000000] mb-6 sm:mb-8 text-xl leading-relaxed">
                 we offer professional brand design services that go beyond just good looks....
               </p>
-
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-[#000000] rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">→</span>
+              <Link href="/services#brand-design">
+                <div className="flex items-center justify-center hover:cursor-pointer relative overflow-hidden rounded-full px-6 py-3">
+                    <div className="flex items-center justify-between w-full gap-2 relative">
+                      {/* Single chevron that slides from left to right */}
+                      <div className="relative z-20 w-5 h-5 bg-[#000000] rounded-full flex items-center justify-center transition-all duration-500 ease-in-out group-hover:translate-x-[120px]">
+                        <ChevronRight className="text-[#ffffff] text-xs font-bold h-3 w-3" />
+                      </div>
+                      
+                      {/* Center text */}
+                      <span className="relative z-20 text-[#000000] group-hover:text-[#ffffff] font-bold text-sm transition-colors duration-300">
+                        READ MORE
+                      </span>
+                      
+                      {/* Right placeholder for spacing */}
+                      <div className="w-5 h-5"></div>
+                    </div>
+                    
+                    {/* Expanding background */}
+                    <div className="absolute inset-0 bg-[#000000] rounded-full transform scale-0 group-hover:scale-100 origin-center transition-transform duration-500 ease-out z-10"></div>
                 </div>
-                <span className="text-[#000000] font-bold text-sm">READ MORE</span>
-              </div>
+              </Link>
             </Card>
 
             {/* Arrow between second and third card - hidden on mobile */}
-            <div className="text-[#000000] text-2xl lg:text-3xl font-bold hidden lg:block">→</div>
+              <ChevronRight className="text-[#000000] text-2xl font-bold hidden lg:block"  />
 
             {/* Brand Management */}
-            <Card className="bg-[#e8e8e8] p-6 sm:p-8 rounded-2xl relative group hover:shadow-lg transition-all duration-300 w-full max-w-sm">
-              <h3 className="text-lg sm:text-xl font-bold mb-2 text-[#000000]">Brand Management</h3>
-              <p className="text-sm sm:text-base font-semibold mb-4 text-[#000000]">Consistency Builds Trust</p>
+              <Card className="bg-[#e8e8e8]/50 p-6 sm:p-8 rounded-2xl relative group hover:shadow-lg transition-all duration-300 w-full max-w-sm flex flex-col items-center">
+                <h3 className="text-xl font-bold mb-2 text-[#000000]">Brand Management</h3>
+                <p className="text-xl font-medium mb-4 text-[#000000]">Consistency Builds Trust</p>
 
-              <p className="text-[#000000] mb-6 sm:mb-8 text-sm leading-relaxed">
+                <p className="text-[#000000] mb-6 sm:mb-8 text-xl leading-relaxed">
                 our expert brand management services ensure your brand looks,and sounds ....
               </p>
 
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-[#000000] rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">→</span>
+                <Link href="/services#brand-management">
+                  <div className="flex items-center justify-center hover:cursor-pointer relative overflow-hidden rounded-full px-6 py-3">
+                    <div className="flex items-center justify-between w-full gap-2 relative">
+                      {/* Single chevron that slides from left to right */}
+                      <div className="relative z-20 w-5 h-5 bg-[#000000] rounded-full flex items-center justify-center transition-all duration-500 ease-in-out group-hover:translate-x-[120px]">
+                        <ChevronRight className="text-[#ffffff] text-xs font-bold h-3 w-3" />
+                      </div>
+                      
+                      {/* Center text */}
+                      <span className="relative z-20 text-[#000000] group-hover:text-[#ffffff] font-bold text-sm transition-colors duration-300">
+                        READ MORE
+                      </span>
+                      
+                      {/* Right placeholder for spacing */}
+                      <div className="w-5 h-5"></div>
+                    </div>
+                    
+                    {/* Expanding background */}
+                    <div className="absolute inset-0 bg-[#000000] rounded-full transform scale-0 group-hover:scale-100 origin-center transition-transform duration-500 ease-out z-10"></div>
                 </div>
-                <span className="text-[#000000] font-bold text-sm">READ MORE</span>
-              </div>
+                </Link>
             </Card>
-          </div>
+            </StaggeredContainer>
         </div>
       </section>
+      </AnimatedSection>
 
       {/* Testimonials Section */}
-      <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 bg-gradient-to-b from-[#ffcccb] to-[#fffbfb]">
+      <AnimatedSection delay={0.6}>
+      <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 relative overflow-hidden">
+        <div 
+          className="absolute inset-0"
+          style={{
+            width: '1500px',
+            height: '700px',
+            left: 'calc(50% - 1500px/2)',
+            top: '-146px',
+            background: 'radial-gradient(54.72% 54.76% at 50.92% -20.34%, #FF3300 41.98%, rgba(255, 51, 0, 0.620122) 60.13%, rgba(255, 51, 0, 0.306537) 76.65%, rgba(255, 51, 0, 0.169634) 99.79%, rgba(255, 51, 0, 0) 100%)',
+            filter: 'blur(70.35px)'
+          }}
+        >
+          
+        </div>
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 text-[#000000]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium mb-8 sm:mb-12 w-full flex justify-center items-center mx-auto text-[#000000]">
             See What People Think About Us
           </h2>
 
-          <div className="relative">
-            <div
-              ref={sliderRef}
-              className="overflow-hidden cursor-grab active:cursor-grabbing select-none"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              <div
-                className="flex transition-transform duration-300 ease-out"
-                style={{
-                  transform: `translateX(calc(-${currentSlide * (100 / cardsPerView)}% + ${isDragging ? translateX : 0}px))`,
-                }}
-              >
-                {testimonials.map((testimonial, index) => (
-                  <div key={index} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2 sm:px-4">
-                    <Card className="bg-[#f5f5f5] p-4 sm:p-6 rounded-2xl h-full">
-                      <p className="text-[#000000] text-sm mb-6 sm:mb-8 leading-relaxed">{testimonial.text}</p>
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="w-6 h-6 rounded-sm flex items-center justify-center"
-                          style={{ backgroundColor: testimonial.color }}
-                        >
-                          <span className="text-white text-xs font-bold">{testimonial.initials}</span>
-                        </div>
-                        <span className="text-[#000000] font-bold text-sm">{testimonial.company}</span>
-                      </div>
-                    </Card>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+            <AutoSlider
+              testimonials={testimonials}
+              autoSlideInterval={4000}
+              pauseOnHover={true}
+            />
         </div>
       </section>
+      </AnimatedSection>
 
       {/* CTA Section */}
+      <AnimatedSection delay={0.8}>
       <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-[#ff7f50] to-[#ffb3ba] p-6 sm:p-8 lg:p-12 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="max-w-7xl mx-auto  bg-[#fffbfb] relative z-10">
+          <div className="bg-gradient-to-r from-[#ff7f50] to-[#ffb3ba] p-6 sm:p-8 lg:p-12 rounded-3xl flex flex-col sm:flex-row items-start sm:items-center w-full justify-between gap-6">
             <div className="text-center sm:text-left">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2c2c2c] leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-5xl font-medium text-[#ffffff] text-start sm:text-center leading-tight">
                 Get Started with Us,
-                <br />
+                <br className="hidden sm:block" />
                 One Click Away
               </h2>
             </div>
             <div className="flex items-center">
-              <Button className="bg-transparent border-2 border-[#2c2c2c] text-[#2c2c2c] hover:bg-[#2c2c2c] hover:text-white px-4 sm:px-6 py-3 rounded-lg font-medium flex items-center gap-2">
-                <div className="w-2 h-2 bg-[#ff3300] rounded-full"></div>
+                <Link href="/contact">
+                  <Button className="group bg-transparent border-2 border-[#2c2c2c] hover:border-none text-[#ffffff] hover:bg-[#ff3300] hover:text-white px-4 sm:px-6 py-3 rounded-lg font-medium flex items-center gap-2">
+                    <div className="w-2 h-2 bg-[#ff3300] group-hover:bg-[#ffffff] rounded-full transition-colors duration-300"></div>
                 JOIN NOW
               </Button>
+                </Link>
             </div>
           </div>
         </div>
       </section>
+      </AnimatedSection>
 
-      <Footer />
     </div>
   )
 }

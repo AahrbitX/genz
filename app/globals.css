@@ -113,6 +113,15 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --animate-grid: grid 15s linear infinite;
+  @keyframes grid {
+  0% {
+    transform: translateY(-50%);
+    }
+  100% {
+    transform: translateY(0);
+    }
+  }
 }
 
 @layer base {
@@ -140,5 +149,25 @@
   }
   100% {
     transform: translate(30px, 30px);
+  }
+}
+
+/* Animated floor grid pattern for header and background */
+.grid-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='1440' height='1024' viewBox='0 0 1440 1024' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.09'%3E%3Cpath d='M43.1922 -67.9999L-646 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M104.675 -67.9999L-513.044 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M166.156 -67.9999L-382.835 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M227.639 -67.9999L-254.974 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M289.122 -67.9999L-129.112 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M350.602 -67.9999L-5.19992 1042.6' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M412.085 -67.9999L117.618 1042.62' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M473.564 -67.9999L239.303 1042.64' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M535.047 -67.9999L360.107 1042.66' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M596.537 -67.9999L480.268 1042.67' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M658.019 -67.9999L600.136 1042.69' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M719.502 -67.9999V1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M780.985 -67.9999L838.867 1042.69' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M842.464 -67.9999L958.734 1042.67' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M903.947 -67.9999L1078.89 1042.66' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M965.43 -67.9999L1199.69 1042.64' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M1026.91 -67.9999L1321.38 1042.62' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M1088.39 -67.9999L1444.2 1042.6' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M1149.87 -67.9999L1568.11 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M1211.36 -67.9999L1691.01 1036.87' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M1272.84 -67.9999L1821.84 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M1334.33 -68L1952.05 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M1395.81 -67.9999L2085 1042.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-2.6756 5.91891H1441.68' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-9.84302 17.4631H1448.84' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-17.787 30.2693H1456.79' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-26.5717 44.4244H1465.57' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-36.241 60.0114H1475.24' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-46.8616 77.1185H1485.85' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-58.4724 95.8362H1497.47' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-71.1445 116.26H1510.14' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-84.9367 138.48H1523.93' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-99.8965 162.594H1538.89' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-116.096 188.702H1555.09' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-133.593 216.903H1572.6' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-152.454 247.3H1591.46' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-172.744 279.996H1611.75' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-194.531 315.104H1633.53' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-217.873 352.725H1656.87' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-242.852 392.974H1681.85' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-269.528 435.964H1708.52' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-297.974 481.807H1736.97' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-328.262 530.622H1767.26' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-360.465 582.525H1799.47' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-394.666 637.636H1833.66' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-430.93 696.08H1869.93' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-469.343 757.981H1908.34' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-509.975 823.462H1948.97' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-552.911 892.654H1991.9' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3Cpath d='M-598.223 965.683H2037.22' stroke='%235F6060' stroke-opacity='0.55' stroke-width='2.85346'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 1440px 1024px;
+  width: 100%;
+  height: 100%;
+  animation: floor-grid-move 20s linear infinite;
+  transform: perspective(1000px) rotateX(60deg);
+  transform-origin: center bottom;
+}
+
+@keyframes floor-grid-move {
+  0% {
+    transform: perspective(1000px) rotateX(60deg) translate(0, 0);
+  }
+  100% {
+    transform: perspective(1000px) rotateX(60deg) translate(61px, 61px);
   }
 }
