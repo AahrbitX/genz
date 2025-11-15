@@ -30,24 +30,6 @@ export default function HomePage() {
       initials: "PC",
       color: "#996600",
     },
-    {
-      text: "Their strategic approach to our brand completely transformed our business. From audience insights to professional execution, they delivered consistent results.",
-      company: "Bright Minds",
-      initials: "BM",
-      color: "#990000",
-    },
-    {
-      text: "The team's creativity and professionalism exceeded our expectations. Our new brand identity perfectly captures our company's vision and values.",
-      company: "Tech Corp",
-      initials: "TC",
-      color: "#006600",
-    },
-    {
-      text: "Gen Z Workspace transformed our entire brand strategy. Their innovative approach and attention to detail helped us stand out in a competitive market.",
-      company: "Innovate Labs",
-      initials: "IL",
-      color: "#9900cc",
-    },
   ]
   return (
     <div className="min-h-screen relative w-screen overflow-x-hidden">

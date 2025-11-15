@@ -1,20 +1,23 @@
 "use client"
-
 import type React from "react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import AnimatedSection from "@/components/animations/AnimatedSection"
-import StaggeredContainer from "@/components/animations/StaggeredContainer"
+import { MessageCircle, Send, MessageSquare, Phone, MapPin } from 'lucide-react'
+import { RetroGrid } from "@/components/ui/retro-grid"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: "",
-    number: "",
+    firstName: "",
+    lastName: "",
     email: "",
+    phoneNumber: "",
+    countryCode: "US",
     message: "",
+    services: [] as string[],
   })
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
@@ -22,15 +25,32 @@ export default function ContactPage() {
     }))
   }
 
+  const handleCheckboxChange = (service: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      services: prev.services.includes(service)
+        ? prev.services.filter((s) => s !== service)
+        : [...prev.services, service],
+    }))
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
     console.log("Form submitted:", formData)
   }
 
   return (
-    <div className="min-h-screen relative mt-20 w-screen overflow-x-hidden">
-            <div 
+    <div className="min-h-screen bg-white pt-20 relative z-10">
+      <div className="fixed inset-0 w-full h-full z-0 overflow-hidden">
+        <RetroGrid 
+          angle={45}
+          cellSize={40}
+          opacity={0.3}
+          lightLineColor="#5F6060"
+          darkLineColor="#5F6060"
+        />
+      </div>
+      <div 
         className="fixed inset-0"
         style={{
           width: '1500px',
@@ -41,130 +61,175 @@ export default function ContactPage() {
           filter: 'blur(70.35px)'
         }}
       ></div>
-      
-      {/* Contact Form Section */}
+      {/* Header Section */}
       <AnimatedSection>
-        <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6">
-          <div className="max-w-md mx-auto">
-            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-              {/* Name Field */}
-              <div>
-                <label className="block text-[#5f6060] text-sm mb-2">Name*</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full bg-transparent border-0 border-b border-[#5f6060] pb-2 text-[#000000] placeholder-[#5f6060] focus:outline-none focus:border-[#ff3300] transition-colors"
-                />
-              </div>
-
-              {/* Number Field */}
-              <div>
-                <label className="block text-[#5f6060] text-sm mb-2">Number*</label>
-                <input
-                  type="tel"
-                  name="number"
-                  value={formData.number}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full bg-transparent border-0 border-b border-[#5f6060] pb-2 text-[#000000] placeholder-[#5f6060] focus:outline-none focus:border-[#ff3300] transition-colors"
-                />
-              </div>
-
-              {/* Email Field */}
-              <div>
-                <label className="block text-[#5f6060] text-sm mb-2">Email*</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full bg-transparent border-0 border-b border-[#5f6060] pb-2 text-[#000000] placeholder-[#5f6060] focus:outline-none focus:border-[#ff3300] transition-colors"
-                />
-              </div>
-
-              {/* Message Field */}
-              <div>
-                <label className="block text-[#5f6060] text-sm mb-2">Message</label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={4}
-                  className="w-full bg-transparent border-0 border-b border-[#5f6060] pb-2 text-[#000000] placeholder-[#5f6060] focus:outline-none focus:border-[#ff3300] transition-colors resize-none"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <div className="pt-4">
-                <Button
-                  type="submit"
-                  className="bg-[#ff3300] hover:bg-[#e62e00] text-white px-6 sm:px-8 py-2 rounded-md font-medium"
-                >
-                  Submit
-                </Button>
-              </div>
-            </form>
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* Get In Touch Section */}
-      <AnimatedSection delay={0.2}>
-        <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 bg-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-[#000000]">Get In Touch</h2>
-
-            <p className="text-base sm:text-lg mb-2 text-[#000000]">
-              Let's shape your brand's <span className="text-[#ff3300]">next big chapter</span> together
+        <section className="py-12 px-4 sm:px-6">
+          <div className="max-w-7xl mx-auto text-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 text-black">
+              Contact our team
+            </h1>
+            <p className="text-base sm:text-lg text-gray-600 mb-2">
+              Got any questions about the product or scaling on our platform? We're here to help.
             </p>
-
-            <p className="text-base sm:text-lg mb-8 sm:mb-12 text-[#000000]">Let's start a conversation</p>
-
-            {/* Contact Methods */}
-            <StaggeredContainer className="flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-16">
-              {/* Phone */}
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#ff3300] rounded-full flex items-center justify-center mb-3 sm:mb-4">
-                  <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                  </svg>
-                </div>
-                <p className="text-[#000000] font-medium text-sm sm:text-base">+91 80724 74376</p>
-              </div>
-
-              {/* Email */}
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#ff3300] rounded-full flex items-center justify-center mb-3 sm:mb-4">
-                  <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
-                </div>
-                <p className="text-[#000000] font-medium text-sm sm:text-base">genzworkspace@gmail.com</p>
-              </div>
-
-              {/* LinkedIn */}
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-[#ff3300] rounded-full flex items-center justify-center mb-3 sm:mb-4">
-                  <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fillRule="evenodd"
-                      d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <p className="text-[#000000] font-medium text-sm sm:text-base">Gen Z Workspace.in</p>
-              </div>
-            </StaggeredContainer>
+            <p className="text-base sm:text-lg text-gray-600">
+              Chat to our friendly team 24/7 and get onboard in less than 5 minutes.
+            </p>
           </div>
         </section>
       </AnimatedSection>
 
+      {/* Form and Contact Info Section */}
+      <AnimatedSection delay={0.1}>
+        <section className="py-8 px-4 sm:px-6 relative z-10">
+          <div className="max-w-5xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,0.8fr] gap-16">
+              {/* Contact Form */}
+              <div>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* First Name and Last Name */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        First name
+                      </label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        placeholder="First name"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3300]/20 focus:border-[#ff3300] transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Last name
+                      </label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        placeholder="Last name"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3300]/20 focus:border-[#ff3300] transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="you@company.com"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3300]/20 focus:border-[#ff3300] transition-all"
+                    />
+                  </div>
+
+                  {/* Phone Number */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Phone number
+                    </label>
+                    <div className="flex gap-2">
+                      <select
+                        name="countryCode"
+                        value={formData.countryCode}
+                        onChange={handleInputChange}
+                        className="px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3300]/20 focus:border-[#ff3300] transition-all bg-white"
+                      >
+                        <option value="US">US</option>
+                        <option value="IN">IN</option>
+                        <option value="UK">UK</option>
+                        <option value="AU">AU</option>
+                      </select>
+                      <input
+                        type="tel"
+                        name="phoneNumber"
+                        placeholder="+1 (555) 000-0000"
+                        value={formData.phoneNumber}
+                        onChange={handleInputChange}
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3300]/20 focus:border-[#ff3300] transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      name="message"
+                      placeholder="Leave us a message..."
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={4}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3300]/20 focus:border-[#ff3300] transition-all resize-none"
+                    />
+                  </div>
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    className="w-full bg-[#ff3300] hover:bg-[#e62e00] text-white py-3 rounded-lg font-medium transition-colors"
+                  >
+                    Send message
+                  </Button>
+                </form>
+              </div>
+
+              {/* Contact Information */}
+              {/* <div className="space-y-10 flex items-center justify-between">
+               
+                <div>
+                  <h3 className="text-xl font-semibold text-black mb-2">Chat with us</h3>
+                  <p className="text-gray-600 text-sm mb-4">Speak to our friendly team via live chat.</p>
+                  <div className="space-y-3">
+                    <a href="#" className="flex items-center gap-2 text-black hover:text-[#ff3300] transition-colors text-sm group">
+                      <MessageCircle className="w-4 h-4" />
+                      <span className="underline">Start a live chat</span>
+                    </a>
+                    <a href="mailto:genzworkspace@gmail.com" className="flex items-center gap-2 text-black hover:text-[#ff3300] transition-colors text-sm group">
+                      <Send className="w-4 h-4" />
+                      <span className="underline">Shoot us an email</span>
+                    </a>
+                    <a href="#" className="flex items-center gap-2 text-black hover:text-[#ff3300] transition-colors text-sm group">
+                      <MessageSquare className="w-4 h-4" />
+                      <span className="underline">Message us on X</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-black mb-2">Call us</h3>
+                  <p className="text-gray-600 text-sm mb-4">Call our team Mon-Fri from 8am to 5pm.</p>
+                  <a href="tel:+15550000000" className="flex items-center gap-2 text-black hover:text-[#ff3300] transition-colors text-sm group">
+                    <Phone className="w-4 h-4" />
+                    <span className="underline">+1 (555) 000-0000</span>
+                  </a>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-semibold text-black mb-2">Visit us</h3>
+                  <p className="text-gray-600 text-sm mb-4">Chat to us in person at our Melbourne HQ.</p>
+                  <a href="#" className="flex items-center gap-2 text-black hover:text-[#ff3300] transition-colors text-sm group">
+                    <MapPin className="w-4 h-4" />
+                    <span className="underline">100 Smith Street, Collingwood VIC 3066</span>
+                  </a>
+                </div>
+              </div> */}
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
     </div>
   )
 }
