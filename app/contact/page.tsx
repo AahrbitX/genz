@@ -38,22 +38,22 @@ export default function ContactPage() {
     return text.trim().split(/\s+/).filter(word => word.length > 0).length
   }
 
-  // Message validation function (100-250 words)
+  // Message validation function (25-50 words)
   const validateMessage = (message: string): { isValid: boolean; error?: string; wordCount?: number } => {
     const wordCount = getWordCount(message)
     
-    if (wordCount < 100) {
+    if (wordCount < 25) {
       return { 
         isValid: false, 
-        error: `Message must contain at least 100 words. Current: ${wordCount} words.`,
+        error: `Message must contain at least 25 words. Current: ${wordCount} words.`,
         wordCount 
       }
     }
     
-    if (wordCount > 250) {
+    if (wordCount > 50) {
       return { 
         isValid: false, 
-        error: `Message must not exceed 250 words. Current: ${wordCount} words.`,
+        error: `Message must not exceed 50 words. Current: ${wordCount} words.`,
         wordCount 
       }
     }
@@ -466,18 +466,18 @@ export default function ContactPage() {
                         Message <span className="text-red-500">*</span>
                       </label>
                       <span className={`text-xs ${
-                        getWordCount(formData.message) < 100 || getWordCount(formData.message) > 250
+                        getWordCount(formData.message) < 25 || getWordCount(formData.message) > 50
                           ? 'text-red-500'
-                          : getWordCount(formData.message) >= 100 && getWordCount(formData.message) <= 250
+                          : getWordCount(formData.message) >= 25 && getWordCount(formData.message) <= 50
                           ? 'text-green-600'
                           : 'text-gray-500'
                       }`}>
-                        {getWordCount(formData.message)} / 100-250 words
+                        {getWordCount(formData.message)} / 25-50 words
                       </span>
                     </div>
                     <textarea
                       name="message"
-                      placeholder="Leave us a message (minimum 100 words, maximum 250 words)..."
+                      placeholder="Leave us a message (minimum 25 words, maximum 50 words)..."
                       value={formData.message}
                       onChange={handleInputChange}
                       required
@@ -493,10 +493,10 @@ export default function ContactPage() {
                     )}
                     {!fieldErrors.message && formData.message && (
                       <p className="mt-1 text-xs text-gray-500">
-                        {getWordCount(formData.message) < 100 
-                          ? `${100 - getWordCount(formData.message)} more words needed`
-                          : getWordCount(formData.message) > 250
-                          ? `${getWordCount(formData.message) - 250} words over limit`
+                        {getWordCount(formData.message) < 25 
+                          ? `${25 - getWordCount(formData.message)} more words needed`
+                          : getWordCount(formData.message) > 50
+                          ? `${getWordCount(formData.message) - 50} words over limit`
                           : 'Word count is valid'}
                       </p>
                     )}
