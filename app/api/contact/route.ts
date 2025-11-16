@@ -31,24 +31,70 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Initialize Google Sheets API
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      },
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    })
-
-    const sheets = google.sheets({ version: 'v4', auth })
+    // Validate environment variables
+    const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
+    const privateKeyRaw = process.env.GOOGLE_PRIVATE_KEY
     const spreadsheetId = process.env.GOOGLE_SHEET_ID
 
-    if (!spreadsheetId) {
+    if (!clientEmail || !privateKeyRaw || !spreadsheetId) {
+      console.error('Missing Google Sheets credentials')
       return NextResponse.json(
-        { error: 'Google Sheet ID not configured' },
+        { error: 'Google Sheets configuration is incomplete' },
         { status: 500 }
       )
     }
+
+    // Format private key for Vercel/production
+    // In Vercel, the private key is stored as a string with \n escaped
+    // We need to convert those escaped newlines to actual newlines
+    let privateKey = privateKeyRaw.trim()
+    
+    // Handle different newline formats that might be in the env variable
+    // Replace escaped newlines with actual newlines
+    privateKey = privateKey.replace(/\\n/g, '\n')
+    
+    // If the key still doesn't have newlines, try to add them manually
+    // This handles cases where the key was pasted without proper formatting
+    if (!privateKey.includes('\n') && privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
+      // The key might be on a single line, try to format it
+      privateKey = privateKey
+        .replace(/-----BEGIN PRIVATE KEY-----/, '-----BEGIN PRIVATE KEY-----\n')
+        .replace(/-----END PRIVATE KEY-----/, '\n-----END PRIVATE KEY-----')
+    }
+    
+    // Ensure the key has proper BEGIN/END markers
+    if (!privateKey.includes('BEGIN PRIVATE KEY') || !privateKey.includes('END PRIVATE KEY')) {
+      console.error('Private key missing proper markers')
+      return NextResponse.json(
+        { error: 'Invalid private key format - missing BEGIN or END markers' },
+        { status: 500 }
+      )
+    }
+    
+    // Ensure the key ends with a newline (some systems require this)
+    if (!privateKey.endsWith('\n')) {
+      privateKey += '\n'
+    }
+
+    // Initialize Google Sheets API
+    let auth
+    try {
+      auth = new google.auth.GoogleAuth({
+        credentials: {
+          client_email: clientEmail,
+          private_key: privateKey,
+        },
+        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+      })
+    } catch (authError: any) {
+      console.error('Google Auth initialization error:', authError.message)
+      return NextResponse.json(
+        { error: 'Failed to initialize Google Sheets authentication' },
+        { status: 500 }
+      )
+    }
+
+    const sheets = google.sheets({ version: 'v4', auth })
 
     // Prepare the row data
     const timestamp = new Date().toISOString()
