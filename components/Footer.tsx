@@ -79,16 +79,16 @@ export default function Footer() {
           <div>
             <h3 className="font-bold text-[#000000] mb-3 sm:mb-4">CONNECT</h3>
             <div className="flex gap-3">
-              <a href="https://instagram.com/genzworkspace" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
+              <a href="https://www.instagram.com/genzworkspace.in?igsh=b3I4cXhxaDlkc2Y2" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
                 <Instagram className="text-white w-4 h-4" />
               </a>
-              <a href="https://wa.me/918072474376" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
+              <a href="https://wa.me/8072474376" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
                 <MessageCircle className="text-white w-4 h-4" />
               </a>
               <a href="mailto:genzworkspace@gmail.com" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
                 <Mail className="text-white w-4 h-4" />
               </a>
-              <a href="https://linkedin.com/company/genzworkspace" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
+              <a href="https://linkedin.com/company/genz-workspace" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
                 <Linkedin className="text-white w-4 h-4" />
               </a>
             </div>

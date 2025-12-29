@@ -45,36 +45,53 @@ export async function POST(request: NextRequest) {
     }
 
     // Format private key for Vercel/production
-    // In Vercel, the private key is stored as a string with \n escaped
-    // We need to convert those escaped newlines to actual newlines
+    // In Vercel, when stored as a string, newlines might be escaped differently
     let privateKey = privateKeyRaw.trim()
     
-    // Handle different newline formats that might be in the env variable
+    // First, try to handle if it's stored with literal \n characters (most common in Vercel)
     // Replace escaped newlines with actual newlines
     privateKey = privateKey.replace(/\\n/g, '\n')
     
-    // If the key still doesn't have newlines, try to add them manually
-    // This handles cases where the key was pasted without proper formatting
-    if (!privateKey.includes('\n') && privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
-      // The key might be on a single line, try to format it
-      privateKey = privateKey
-        .replace(/-----BEGIN PRIVATE KEY-----/, '-----BEGIN PRIVATE KEY-----\n')
-        .replace(/-----END PRIVATE KEY-----/, '\n-----END PRIVATE KEY-----')
+    // Also handle if it was stored with actual newlines (less common but possible)
+    // No change needed if already has newlines
+    
+    // If the key doesn't have newlines after replacement, it might be stored incorrectly
+    // Try to detect and fix common issues
+    if (!privateKey.includes('\n')) {
+      // Check if BEGIN and END are on the same "line" (no newlines between them)
+      if (privateKey.includes('-----BEGIN PRIVATE KEY-----') && privateKey.includes('-----END PRIVATE KEY-----')) {
+        // The key content is there but newlines are missing
+        // This shouldn't happen if stored correctly, but let's try to fix it
+        privateKey = privateKey
+          .replace(/-----BEGIN PRIVATE KEY-----/, '-----BEGIN PRIVATE KEY-----\n')
+          .replace(/-----END PRIVATE KEY-----/, '\n-----END PRIVATE KEY-----')
+      }
     }
     
     // Ensure the key has proper BEGIN/END markers
     if (!privateKey.includes('BEGIN PRIVATE KEY') || !privateKey.includes('END PRIVATE KEY')) {
       console.error('Private key missing proper markers')
+      console.error('Key preview (first 50 chars):', privateKeyRaw.substring(0, 50))
       return NextResponse.json(
         { error: 'Invalid private key format - missing BEGIN or END markers' },
         { status: 500 }
       )
     }
     
-    // Ensure the key ends with a newline (some systems require this)
+    // Ensure the key ends with a newline (required by some crypto libraries)
     if (!privateKey.endsWith('\n')) {
       privateKey += '\n'
     }
+    
+    // Log key format for debugging (first and last 30 chars only, never full key)
+    console.log('Private key format check:', {
+      hasBegin: privateKey.includes('BEGIN PRIVATE KEY'),
+      hasEnd: privateKey.includes('END PRIVATE KEY'),
+      hasNewlines: privateKey.includes('\n'),
+      keyLength: privateKey.length,
+      firstChars: privateKey.substring(0, 30),
+      lastChars: privateKey.substring(privateKey.length - 30)
+    })
 
     // Initialize Google Sheets API
     let auth

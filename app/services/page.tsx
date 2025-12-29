@@ -303,7 +303,7 @@ export function ServiceDetails() {
         <div className="relative">
           <div className="rounded-xl overflow-hidden shadow-lg">
             <Image 
-              src="/images/services/Brand-Management.png" 
+              src="/images/logo/brandmange.jpg" 
               alt="Brand Management" 
               width={500} 
               height={500} 

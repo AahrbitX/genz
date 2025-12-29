@@ -194,7 +194,7 @@ export default function AboutPage() {
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#000000] mb-12 leading-tight">
                 Trusted By Industry
                 <br />
-                <span className="text-[#ff3300]">Leaders</span> Worldwide
+                <span className="text-[#ff3300]">Leaders</span>
               </h2>
 
               {/* Auto-Scrolling Brand Rows */}

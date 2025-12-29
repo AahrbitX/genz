@@ -16,18 +16,21 @@ export default function HomePage() {
       text: "Our brand went from being overlooked to standing out in a crowded market. Their total branding package combined with strategic social media management was a game changer for us.",
       company: "Vault of Gamers",
       initials: "VG",
+      imgpath:"/images/logo/3.jpg",
       color: "#990000",
     },
     {
       text: "Incredible attention to detail and creativity. I got my logo within a few days and didn't even need revisions. It felt like they read my mind!",
-      company: "Elite Safety",
+      company: "Kanyakumai Polymers",
       initials: "ES",
+      imgpath:"/images/logo/4.jpeg",
       color: "#994400",
     },
     {
       text: "From logo design to daily social media campaigns, they handle everything seamlessly. Our brand finally has a consistent look, feel, and message across all platforms.",
       company: "Pommi Caters",
       initials: "PC",
+      imgpath:"/images/logo/1.jpg",
       color: "#996600",
     },
   ]
@@ -88,7 +91,8 @@ export default function HomePage() {
               {/* Left side - Dark gray placeholder */}
               <div className="w-full lg:w-2/4 h-full">
                   <div className="bg-[#8e8e8e] h-full lg:rounded-l-[120px]">
-                    <Image src="/images/services/Brand-Design.png" alt="Brand Stories"  width={500} height={500} className="object-cover w-full h-full" />
+                    <Image src="/images/logo/brand.gif" alt="Brand Stories"  width={500} height={500} className="object-cover w-full h-full" />
+                    
                   </div>
               </div>
 

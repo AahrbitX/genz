@@ -3,11 +3,13 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Card } from '@/components/ui/card'
+import Image from 'next/image'
 
 interface Testimonial {
   text: string
   company: string
   initials: string
+  imgpath:string
   color: string
 }
 
@@ -200,7 +202,8 @@ export default function AutoSlider({
                       className="rounded-full flex items-center w-10 h-10 justify-center"
                       style={{ backgroundColor: testimonial.color }}
                     >
-                      <span className="text-white text-xs font-bold">{testimonial.initials}</span>
+                      {/* <span className="text-white text-xs font-bold">{testimonial.initials}</span> */}
+                      <span className='bg-transparent'><Image className="border-0 bg-transparent rounded-full" src={testimonial.imgpath} width={100} height={100} alt=''></Image></span>
                     </div>
                     <span className="text-[#000000] font-bold text-xl">{testimonial.company}</span>
                   </div>
