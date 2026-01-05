@@ -18,7 +18,7 @@ export default function Footer() {
             />
             <div className="text-[#5f6060] text-sm space-y-2">
               <p>
-                Email: <a href="mailto:genzworkspace@gmail.com" className="hover:text-[#ff3300] transition-colors">genzworkspace@gmail.com</a>
+                Email: <a href="mailto:genzworkspace@genzworkspace.in" className="hover:text-[#ff3300] transition-colors">genzworkspace@genzworkspace.in</a>
               </p>
               <p>
                 Phone: <a href="tel:+918072474376" className="hover:text-[#ff3300] transition-colors">+91 80724 74376</a>
@@ -88,7 +88,7 @@ export default function Footer() {
               <a href="mailto:genzworkspace@gmail.com" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
                 <Mail className="text-white w-4 h-4" />
               </a>
-              <a href="https://linkedin.com/company/genz-workspace" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
+              <a href="https://www.linkedin.com/company/genz-workspace/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
                 <Linkedin className="text-white w-4 h-4" />
               </a>
             </div>
