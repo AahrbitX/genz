@@ -18,7 +18,7 @@ export default function Footer() {
             />
             <div className="text-[#5f6060] text-sm space-y-2">
               <p>
-                Email: <a href="mailto:genzworkspace@genzworkspace.in" className="hover:text-[#ff3300] transition-colors">genzworkspace@genzworkspace.in</a>
+                Email: <a href="mailto:genzworkspace@gmail.com" className="hover:text-[#ff3300] transition-colors">genzworkspace@gmail.com</a>
               </p>
               <p>
                 Phone: <a href="tel:+918072474376" className="hover:text-[#ff3300] transition-colors">+91 80724 74376</a>

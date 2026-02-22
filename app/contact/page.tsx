@@ -130,6 +130,16 @@ export default function ContactPage() {
           return { isValid: true }
         }
         return { isValid: false, error: 'Invalid Australian phone number format' }
+      case 'UAE':
+        // UAE: 9 digits (mobile numbers start with 5)
+        if (cleanedPhone.length !== 9) {
+          return { isValid: false, error: 'UAE phone number must be 9 digits (e.g., 512345678)' }
+        }
+        if (cleanedPhone[0] !== '5') {
+          return { isValid: false, error: 'UAE mobile number must start with 5' }
+        }
+        return { isValid: true }
+
       
       default:
         // Fallback: 10-15 digits
@@ -437,6 +447,7 @@ export default function ContactPage() {
                         <option value="IN">IN</option>
                         <option value="UK">UK</option>
                         <option value="AU">AU</option>
+                        <option value="UAE">UAE</option>
                       </select>
                       <div className="flex-1">
                         <input
