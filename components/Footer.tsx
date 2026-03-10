@@ -85,7 +85,7 @@ export default function Footer() {
               <a href="https://wa.me/8072474376" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
                 <MessageCircle className="text-white w-4 h-4" />
               </a>
-              <a href="mailto:genzworkspace@gmail.com" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
+              <a href="mailto:genzworkspace.in@gmail.com" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
                 <Mail className="text-white w-4 h-4" />
               </a>
               <a href="https://www.linkedin.com/company/genz-workspace/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#000000] rounded-full flex items-center justify-center hover:bg-[#ff3300] transition-colors cursor-pointer">
